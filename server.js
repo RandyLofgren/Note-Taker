@@ -28,6 +28,32 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
   });
 
+// Create New Characters - takes in JSON input
+app.post("/api/notes", function(req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var notePage = req.body;
+  
+  
+  
+    console.log(notePage);
+  
+    dataBase.push(notePage);
+    //Might need to change this to ./db/db.json
+     fs.writeFile(dataBase, JSON.stringify(dataBase), err => {
+         if (err){
+             console.log("You've got an error")
+             res.sendStatus(404);
+         } else {res.sendStatus(200);
+         }
+     }); 
+
+
+
+    res.json(newCharacter);
+  });
+  
+
   
 
 
