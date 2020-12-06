@@ -29,20 +29,15 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-// Create New Characters - takes in JSON input
+
 app.post("/api/notes", function (req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
+    
     var notePage = req.body;
-
-
-
-    console.log(notePage);
 
     dataBase.push(notePage);
     dataBase.forEach((o, i) => o.id = i + 1);
 
-    //Might need to change this to ./db/db.json
+    
     fs.writeFile("./db/db.json", JSON.stringify(dataBase), err => {
         if (err) {
             console.log("You've got an error")
@@ -62,8 +57,6 @@ app.delete("/api/notes/:id", function (req, res){
             break;
         }
     }
-
-
     fs.writeFile("./db/db.json", JSON.stringify(dataBase), err => {
         if (err) {
             console.log("You've got an error")
@@ -73,8 +66,6 @@ app.delete("/api/notes/:id", function (req, res){
         }
     });
 })
-
-
 
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
